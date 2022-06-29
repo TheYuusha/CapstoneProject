@@ -1,0 +1,42 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://HexMap/MapGenerator.gd" type="Script" id=1]
+[ext_resource path="res://HexMap/Tiles/HexTile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://TileResources/Sand.tres" type="Resource" id=4]
+[ext_resource path="res://TileResources/Water.tres" type="Resource" id=5]
+[ext_resource path="res://TileResources/Ice.tres" type="Resource" id=6]
+[ext_resource path="res://TileResources/Lava.tres" type="Resource" id=7]
+[ext_resource path="res://TileResources/Grass.tres" type="Resource" id=8]
+[ext_resource path="res://Interactables/Coin/Coin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Instances/UI/PlayerUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Interactables/Enemy/Enemy.tscn" type="PackedScene" id=11]
+
+[sub_resource type="ProceduralSky" id=1]
+ground_bottom_color = Color( 0, 0.686275, 0.266667, 1 )
+ground_horizon_color = Color( 0, 0.376471, 0.0235294, 1 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+
+[node name="MapGenerator" type="Spatial"]
+script = ExtResource( 1 )
+grid_size = Vector2( 74, 46 )
+hex_tile = ExtResource( 2 )
+coin = ExtResource( 9 )
+enemy = ExtResource( 11 )
+hex_data = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ]
+
+[node name="Map" type="Spatial" parent="."]
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 25, -40 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="PlayerUI" parent="." instance=ExtResource( 10 )]
+
+[node name="SpawnPosition" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 25, -40 )

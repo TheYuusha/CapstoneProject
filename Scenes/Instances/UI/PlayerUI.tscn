@@ -1,0 +1,216 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/CoinsLabels.gd" type="Script" id=1]
+[ext_resource path="res://Player/PauseMenu.gd" type="Script" id=2]
+[ext_resource path="res://Font/Times32.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Font/Times32Shadow.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scenes/Instances/UI/Health.gd" type="Script" id=5]
+[ext_resource path="res://Font/times.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scenes/Instances/UI/EndScreen.gd" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 6 )
+
+[node name="PlayerUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coins" type="HBoxContainer" parent="."]
+anchor_left = 0.02
+anchor_top = 0.033
+anchor_right = 0.159
+anchor_bottom = 0.093
+margin_left = -0.480001
+margin_top = 0.200001
+margin_right = -122.816
+margin_bottom = -15.8
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Coins"]
+margin_right = 91.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 4 )
+text = "Coins: "
+align = 2
+valign = 1
+
+[node name="Value" type="Label" parent="Coins"]
+margin_left = 95.0
+margin_right = 143.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 4 )
+text = "000"
+valign = 1
+
+[node name="Health" type="HBoxContainer" parent="."]
+anchor_left = 0.02
+anchor_top = 0.033
+anchor_right = 0.159
+anchor_bottom = 0.093
+margin_left = -0.480001
+margin_top = 34.1411
+margin_right = 0.184006
+margin_bottom = 34.1411
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Health"]
+margin_right = 102.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 4 )
+text = "Health: "
+align = 2
+valign = 1
+
+[node name="Value" type="Label" parent="Health"]
+margin_left = 106.0
+margin_right = 138.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 4 )
+text = "05"
+valign = 1
+
+[node name="PauseMenu" type="Panel" parent="."]
+pause_mode = 2
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -151.0
+margin_right = 90.0
+margin_bottom = 151.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonContainer" type="VBoxContainer" parent="PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 12.0
+margin_right = -4.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/ButtonContainer"]
+margin_right = 172.0
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 3 )
+text = "Resume"
+
+[node name="MenuButton" type="Button" parent="PauseMenu/ButtonContainer"]
+margin_top = 58.0
+margin_right = 172.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 3 )
+text = "Main Menu"
+
+[node name="ResetButton" type="Button" parent="PauseMenu/ButtonContainer"]
+margin_top = 116.0
+margin_right = 172.0
+margin_bottom = 158.0
+custom_fonts/font = ExtResource( 3 )
+text = "Reset"
+
+[node name="RespawnButton" type="Button" parent="PauseMenu/ButtonContainer"]
+margin_top = 174.0
+margin_right = 172.0
+margin_bottom = 216.0
+custom_fonts/font = ExtResource( 3 )
+text = "Respawn"
+
+[node name="ExitButton" type="Button" parent="PauseMenu/ButtonContainer"]
+margin_top = 232.0
+margin_right = 172.0
+margin_bottom = 274.0
+custom_fonts/font = ExtResource( 3 )
+text = "Exit Game"
+
+[node name="EndScreen" type="Panel" parent="."]
+pause_mode = 2
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -175.0
+margin_top = -139.0
+margin_right = 175.0
+margin_bottom = 139.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EndText" type="Label" parent="EndScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -174.0
+margin_top = -134.0
+margin_right = 173.0
+margin_bottom = -79.0
+custom_fonts/font = SubResource( 1 )
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="ButtonContainer2" type="VBoxContainer" parent="EndScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -171.0
+margin_top = -140.5
+margin_right = 171.0
+margin_bottom = 140.5
+custom_constants/separation = 16
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton" type="Button" parent="EndScreen/ButtonContainer2"]
+margin_top = 61.0
+margin_right = 342.0
+margin_bottom = 103.0
+custom_fonts/font = ExtResource( 3 )
+text = "Main Menu"
+
+[node name="ResetButton" type="Button" parent="EndScreen/ButtonContainer2"]
+margin_top = 119.0
+margin_right = 342.0
+margin_bottom = 161.0
+custom_fonts/font = ExtResource( 3 )
+text = "Reset"
+
+[node name="ExitButton" type="Button" parent="EndScreen/ButtonContainer2"]
+margin_top = 177.0
+margin_right = 342.0
+margin_bottom = 219.0
+custom_fonts/font = ExtResource( 3 )
+text = "Exit Game"
+
+[connection signal="pressed" from="PauseMenu/ButtonContainer/ResumeButton" to="PauseMenu" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="PauseMenu/ButtonContainer/MenuButton" to="PauseMenu" method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="PauseMenu/ButtonContainer/ResetButton" to="PauseMenu" method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="PauseMenu/ButtonContainer/RespawnButton" to="PauseMenu" method="_on_RespawnButton_pressed"]
+[connection signal="pressed" from="PauseMenu/ButtonContainer/ExitButton" to="PauseMenu" method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="EndScreen/ButtonContainer2/MenuButton" to="PauseMenu" method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="EndScreen/ButtonContainer2/ResetButton" to="PauseMenu" method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="EndScreen/ButtonContainer2/ExitButton" to="PauseMenu" method="_on_ExitButton_pressed"]

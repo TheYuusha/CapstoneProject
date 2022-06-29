@@ -1,0 +1,148 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Player/CameraOrigin.gd" type="Script" id=1]
+[ext_resource path="res://Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Player/OtherInputs.gd" type="Script" id=3]
+[ext_resource path="res://Player/ShadowCast.gd" type="Script" id=7]
+[ext_resource path="res://textures/playerShadow.png" type="Texture" id=8]
+[ext_resource path="res://Player/PlayerMovement.gd" type="Script" id=9]
+[ext_resource path="res://Player/Attack.gd" type="Script" id=10]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.803922, 0.415686, 0.0745098, 1 )
+
+[sub_resource type="CapsuleMesh" id=2]
+material = SubResource( 1 )
+radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 1, 0.94902, 0.2, 1 )
+
+[sub_resource type="CubeMesh" id=4]
+material = SubResource( 3 )
+size = Vector3( 0.5, 0.5, 0.2 )
+
+[sub_resource type="CubeMesh" id=5]
+size = Vector3( 0.1, 0.1, 2 )
+
+[sub_resource type="CapsuleShape" id=6]
+radius = 0.5
+
+[sub_resource type="SphereShape" id=7]
+radius = 1.5
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 0.650877, 0.0677573, 0.57635 )
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 0.533832, 1.01292, 0.545819 )
+
+[node name="Player" type="KinematicBody"]
+pause_mode = 1
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "Player"
+}
+
+[node name="PlayerMovement" type="Spatial" parent="."]
+script = ExtResource( 9 )
+jump_height = 3.5
+jump_time_to_peak = 0.5
+jump_time_to_descent = 0.5
+
+[node name="Attack" type="Spatial" parent="."]
+script = ExtResource( 10 )
+
+[node name="OtherInputs" type="Spatial" parent="."]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="CameraOrigin" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+script = ExtResource( 1 )
+look_sensitivity = 16.0
+min_look_angle = -89.0
+max_look_angle = 35.0
+max_distance = -3.0
+min_distance = -8.0
+
+[node name="Camera" type="Camera" parent="CameraOrigin"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 0 )
+
+[node name="CameraCollider" type="RayCast" parent="CameraOrigin"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0 )
+enabled = true
+cast_to = Vector3( -5, 0, 0 )
+
+[node name="Model" type="Spatial" parent="."]
+
+[node name="Body" type="MeshInstance" parent="Model"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Visor" type="MeshInstance" parent="Model"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.347072, 1.44798, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Arms" type="MeshInstance" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13481, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 6 )
+
+[node name="InteractableCollider" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractableCollider"]
+shape = SubResource( 7 )
+disabled = true
+
+[node name="GroundPoundArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="GroundPoundShape" type="CollisionShape" parent="GroundPoundArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.09014, 0 )
+shape = SubResource( 8 )
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Tween" type="Tween" parent="."]
+pause_mode = 1
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShadowCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -10, 0 )
+script = ExtResource( 7 )
+
+[node name="Shadow" type="Sprite3D" parent="ShadowCast"]
+transform = Transform( 1.5, 0, 0, 0, -6.55671e-08, -1, 0, 1.5, -4.37114e-08, 0, 0, 0 )
+texture = ExtResource( 8 )
+
+[node name="InteractCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30528, 0 )
+cast_to = Vector3( 2, 0, 0 )
+collision_mask = 4
+
+[node name="HitArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="HitArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879496, 0 )
+shape = SubResource( 9 )
+
+[connection signal="body_entered" from="GroundPoundArea" to="." method="_on_GroundPoundArea_body_entered"]
+[connection signal="tween_completed" from="Tween" to="Attack" method="_on_Tween_tween_completed"]
+[connection signal="timeout" from="AttackTimer" to="Attack" method="_on_AttackTimer_timeout"]
+[connection signal="body_entered" from="HitArea" to="." method="_on_HitArea_body_entered"]
